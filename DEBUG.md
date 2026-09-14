@@ -85,3 +85,19 @@ gejalanya meyakinkan dan gampang disalahartikan sebagai paket rusak.
   `undefined`** — jadi gejalanya muncul ketika parameter belum tersimpan
   ke workflow, bukan ketika benar-benar dikosongkan. Perlu dipastikan
   ulang di instansi tempat gejalanya muncul.
+
+## `npm publish` ditolak 409 "Cannot publish over previously staged version"
+
+- Sebabnya: percobaan `npm publish` dari sesi non-interaktif gagal di
+  OTP (`EOTP`), tetapi versi itu terlanjur tersangkut sebagai *staged
+  version* di npm. Percobaan berikutnya ditolak karena tidak boleh
+  menimpa versi yang sudah di-stage.
+- Terbukti bukan penyebabnya: paketnya sehat — `npm pack` benar, login
+  sah, dan versi itu tidak ada di registry publik (`npm view versions`
+  hanya menampilkan versi sebelumnya).
+- Status: selesai — jangan menjalankan `npm publish` dari sesi yang tidak
+  bisa menyelesaikan OTP. Publish dijalankan pemilik di terminalnya
+  sendiri, atau dengan `--otp=<kode>`.
+
+  Kalau sudah terlanjur: bereskan lewat **Staged Packages** di npmjs.com,
+  atau naikkan nomor versi lalu terbitkan ulang.
