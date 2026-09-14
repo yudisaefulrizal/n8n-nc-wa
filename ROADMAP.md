@@ -127,8 +127,8 @@ Tahap yang membedakan paket pribadi dari paket publik.
 Dikerjakan hanya kalau pemilik menyuruh. Sekali terbit di npm, versi itu
 tidak bisa ditarik diam-diam.
 
-- [ ] Repo GitHub
-- [ ] Terbitkan ke npm
+- [x] Repo GitHub
+- [x] Terbitkan ke npm
 - [ ] Pasang lewat Settings → Community nodes di instansi produksi
 
 **Uji**
