@@ -26,10 +26,11 @@ Node yang tidak muncul di daftar tidak bisa diuji apa pun.
 - [ ] [manual] Pasang paket di n8n, node "NC-WA" muncul di panel node
 - [ ] [manual] Isi credential, tombol test kredensial hijau
 
-## 2. Kirim teks
+## 2. Kirim pesan
 
 - [ ] Node aksi NC-WA, resource Message
 - [ ] Operasi Kirim Teks (session, to, text)
+- [ ] Operasi Kirim Media (type, url, caption, filename)
 - [ ] Teruskan error engine apa adanya
 - [ ] Dukung Continue On Fail
 
@@ -39,8 +40,10 @@ Node yang tidak muncul di daftar tidak bisa diuji apa pun.
 - [ ] [agent] Session belum tersambung → `session_not_connected`
       (membuktikan URL, body, dan header sampai benar)
 - [ ] [agent] Session id berisi karakter aneh tidak merusak URL
+- [ ] [agent] Media tanpa caption tidak mengirim field kosong
 - [ ] [agent] Continue On Fail menyala → error jadi item, workflow lanjut
 - [ ] [manual] Kirim teks dari workflow, pesan sampai di HP tujuan
+- [ ] [manual] Kirim gambar + caption, sampai dan caption terbaca
 
 ## 3. Presence
 
@@ -53,7 +56,20 @@ Node yang tidak muncul di daftar tidak bisa diuji apa pun.
 - [ ] [manual] Indikator "sedang mengetik" terlihat di HP tujuan
 - [ ] [manual] Tandai dibaca → centang biru muncul di HP pengirim
 
-## 4. Trigger
+## 4. Kelola session
+
+- [ ] Resource Session: buat, detail, daftar, QR
+- [ ] Sambung ulang, logout, hapus
+- [ ] Daftar session dipecah jadi beberapa item
+
+**Uji**
+- [ ] [agent] Ambil daftar → tiap session jadi satu item terpisah
+- [ ] [agent] Buat session lalu hapus, keduanya mengembalikan bentuk benar
+- [ ] [agent] Ambil detail session tak dikenal → error diteruskan apa adanya
+- [ ] [manual] Buat session dari workflow, ambil QR, pindai sampai
+      `connected`
+
+## 5. Trigger
 
 - [ ] Trigger node dengan webhook POST
 - [ ] Pilihan event: pesan masuk, status session, QR
@@ -70,18 +86,29 @@ Node yang tidak muncul di daftar tidak bisa diuji apa pun.
       kirim pesan dari HP → workflow berjalan
 - [ ] [manual] Field `from`, `sender`, `isGroup` terisi benar di output
 
-## 5. Rapikan untuk dipakai
+## 6. Siap dipakai orang lain
 
-- [ ] README: pasang, atur credential, siapkan trigger
+Tahap yang membedakan paket pribadi dari paket publik.
+
+- [ ] README bahasa Inggris: apa ini, butuh apa, cara pasang, cara pakai
+- [ ] Tautan ke engine NC-WA untuk yang belum punya
+- [ ] LICENSE (MIT)
 - [ ] Catatan migrasi dari WAHA (perubahan ekspresi `payload.*`)
 - [ ] Ikon node
+- [ ] Pastikan tidak ada nilai default yang menunjuk instalasi pembuat
 
 **Uji**
+- [ ] [agent] Cari di seluruh kode: tidak ada alamat IP, port, nama
+      session, atau API key yang tertanam
+- [ ] [agent] `npm pack` — isi tarball hanya `dist` dan berkas wajib,
+      tidak ada `.env`, sumber, atau berkas pribadi
+- [ ] [manual] Pasang di n8n **tanpa** engine berjalan → node tetap muncul
+      dan bisa dibuka, gagal hanya saat dijalankan
 - [ ] [manual] Orang lain bisa memasang hanya dengan membaca README
 - [ ] [manual] Satu cabang workflow `ai agent v2` dipindah dari WAHA
       ke NC-WA dan tetap berjalan
 
-## 6. Terbitkan
+## 7. Terbitkan
 
 Dikerjakan hanya kalau pemilik menyuruh. Sekali terbit di npm, versi itu
 tidak bisa ditarik diam-diam.

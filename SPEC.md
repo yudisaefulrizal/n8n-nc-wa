@@ -8,25 +8,56 @@ engine. Yang pintar tetap engine dan workflow, bukan node ini.
 
 ## Kenapa dibuat
 
-Workflow `ai agent v2` sekarang memakai 60 node WAHA. Engine NC-WA sudah
-jalan di produksi dan menyediakan kemampuan yang sama, tapi belum ada
-node-nya — jadi hanya bisa dipanggil lewat HTTP Request node, satu per satu,
-dengan URL dan header yang ditulis ulang tiap kali.
+Engine NC-WA menyediakan REST API, tapi tanpa node, workflow harus
+memanggilnya lewat HTTP Request node — URL, header, dan bentuk body
+ditulis ulang tiap kali.
 
-Sasaran: bisa mengganti WAHA di workflow tanpa menulis HTTP Request manual.
+Sasaran langsung: menggantikan 60 node WAHA di workflow `ai agent v2`
+tanpa menulis HTTP Request manual.
+
+## Untuk siapa
+
+**Paket publik.** Siapa pun boleh memasangnya di instansi n8n masing-masing.
+
+Memasang node tidak mensyaratkan apa pun. Orang yang belum punya engine
+NC-WA tetap bisa memasang paketnya, membuka node-nya, dan membaca
+pilihannya. Kegagalan koneksi baru muncul saat workflow dijalankan —
+bukan saat dipasang.
+
+Akibatnya bagi rancangan:
+
+- **Tanpa nilai default yang mengarah ke instalasi mana pun.** Base URL
+  kosong, diisi sendiri oleh pemakai. Tidak ada `127.0.0.1:3000` atau
+  alamat lain yang ditanam di kode.
+- **Tidak ada asumsi soal nama session.** Tidak ada "toko-a" sebagai
+  default; itu nama session di instalasi pembuatnya, bukan milik pemakai.
+- **Dokumentasi berdiri sendiri.** README tidak menganggap pembaca sudah
+  punya engine atau tahu apa itu NC-WA.
 
 ## Lingkup
 
-Hanya operasi yang benar-benar dipakai workflow hari ini.
+Seluruh endpoint engine yang masuk akal dipanggil dari workflow.
 
-Diambil dari `ai agent v2`: Send Text (16), Start Typing (16),
-Stop Typing (16), Send Seen (12). Tidak ada satu pun node WAHA di workflow
-itu yang mengelola session atau mengirim media.
+Lingkup tidak dipersempit mengikuti kebutuhan pembuatnya. Pemakai lain
+punya alur berbeda — yang tidak terpakai cukup diabaikan, sedangkan yang
+tidak ada memaksa mereka kembali memakai HTTP Request node.
 
 ### Node aksi — NC-WA
+
+Message:
 - [ ] Kirim teks
-- [ ] Mengetik (mulai / berhenti)
+- [ ] Kirim media + caption
+- [ ] Mengetik (composing / recording / paused)
 - [ ] Tandai dibaca
+
+Session:
+- [ ] Buat session
+- [ ] Ambil detail session
+- [ ] Ambil daftar session
+- [ ] Ambil QR
+- [ ] Sambung ulang
+- [ ] Logout
+- [ ] Hapus session
 
 ### Node trigger — NC-WA Trigger
 - [ ] Terima webhook pesan masuk dari engine
@@ -40,18 +71,15 @@ itu yang mengelola session atau mengirim media.
 
 ## Di luar lingkup
 
-**Kelola session** (buat, QR, logout, hapus) — dikerjakan lewat dashboard
-engine, bukan dari workflow. Session dibuat sekali lalu dipakai terus;
-tidak ada alasan sebuah workflow membuat session sendiri.
-
-**Kirim media** — belum dipakai workflow mana pun. Ditambahkan kalau sudah
-ada kebutuhan nyata, bukan karena endpoint-nya kebetulan ada.
-
-**Unduh media masuk** — `GET /media/:id` butuh API key dan mengembalikan
-berkas biner. Pakai HTTP Request node kalau perlu.
+**Unduh media masuk** — `GET /media/:id` mengembalikan berkas biner, bukan
+JSON. Penanganannya berbeda dari operasi lain dan lebih cocok lewat HTTP
+Request node yang sudah pandai mengurus berkas.
 
 **Broadcast, kontak, jadwal** — sama seperti di engine: urusan aplikasi
-pemakai.
+pemakai, bukan urusan node.
+
+**Memasang atau mengatur engine** — node hanya memanggil API. Cara
+memasang engine ada di dokumentasi engine.
 
 ## Bentuk data
 
@@ -70,7 +98,7 @@ Payload engine diteruskan apa adanya, datar:
 ```json
 {
   "event": "message",
-  "sessionId": "toko-a",
+  "sessionId": "nama-session",
   "messageId": "3EB0...",
   "from": "628123456789",
   "isGroup": false,
@@ -101,9 +129,21 @@ pilihan state `composing` / `recording` / `paused`.
 | Operasi node | Endpoint |
 |---|---|
 | Kirim teks | `POST /sessions/:id/messages/text` |
+| Kirim media | `POST /sessions/:id/messages/media` |
 | Mengetik | `POST /sessions/:id/typing` |
 | Tandai dibaca | `POST /sessions/:id/read` |
+| Buat session | `POST /sessions` |
+| Ambil detail session | `GET /sessions/:id` |
+| Ambil daftar session | `GET /sessions` |
+| Ambil QR | `GET /sessions/:id/qr` |
+| Sambung ulang | `POST /sessions/:id/reconnect` |
+| Logout | `POST /sessions/:id/logout` |
+| Hapus session | `DELETE /sessions/:id` |
 | Test kredensial | `GET /stats` |
+
+Operasi yang mengembalikan array (daftar session) dipecah jadi beberapa
+item n8n, bukan satu item berisi array — supaya bisa langsung dilewatkan
+ke node berikutnya.
 
 Trigger tidak memanggil engine. Engine yang mengirim ke URL webhook n8n
 lewat `WEBHOOK_URL`.
@@ -167,3 +207,12 @@ dan blok `n8n` di `package.json` yang menunjuk berkas hasil build.
 berawalan `n8n-nodes-`. Ini bukan kelalaian — memang tidak harus sama.
 
 Repo: `https://github.com/yudisaefulrizal/n8n-nc-wa.git`
+
+Karena dipakai orang lain:
+
+- **Lisensi MIT**, berkas `LICENSE` ada di repo.
+- **README berbahasa Inggris.** Pemakainya tidak hanya penutur Indonesia,
+  dan npm dibaca lintas negara. Dokumen perencanaan (SPEC, ROADMAP, AGENT,
+  DEBUG) tetap bahasa Indonesia — itu untuk yang mengerjakan.
+- **Versi mengikuti semver.** Perubahan yang merusak workflow orang
+  (nama field keluaran, nama operasi) hanya boleh di versi mayor.

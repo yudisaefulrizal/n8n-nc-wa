@@ -69,10 +69,23 @@ API key. Pastikan `.gitignore` terpasang sebelum `git add` pertama.
 **Tahap:** perencanaan selesai, belum ada kode
 
 **Sudah selesai:**
-- SPEC dan ROADMAP disusun berdasarkan pemakaian nyata di workflow
-  `ai agent v2`: hanya 4 operasi WAHA yang terpakai (Send Text,
-  Start/Stop Typing, Send Seen), tidak ada kelola session atau media
+- SPEC dan ROADMAP disusun; lingkup mencakup seluruh endpoint engine
+  (Message + Session + trigger), bukan hanya yang dipakai workflow
+  pembuatnya — paket ini untuk umum
 - Nama paket `n8n-nodes-nc-wa` dicek belum dipakai di npm
 - Sasaran runtime dipastikan: n8n 2.30.8, `n8n-workflow` 2.30.2
+- Repo: `github.com/yudisaefulrizal/n8n-nc-wa`, cabang `main`
 
 **Berikutnya:** tahap 1 — fondasi paket.
+
+---
+
+## Ingat: paket ini publik
+
+Dipasang orang lain di instansi n8n mereka. Yang gampang terlupa:
+
+- Jangan menanam alamat, port, nama session, atau API key sebagai
+  default. Punya pembuatnya bukan punya pemakainya.
+- Node harus tetap muncul dan bisa dibuka walau engine tidak ada.
+- Nama operasi dan field keluaran adalah janji ke pemakai. Mengubahnya
+  merusak workflow orang — hanya boleh di versi mayor.
