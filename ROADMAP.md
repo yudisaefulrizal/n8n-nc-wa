@@ -8,22 +8,36 @@ di port terpisah. Tes `[manual]` butuh instansi n8n dan HP asli.
 
 ## 1. Fondasi paket
 
-- [ ] Setup proyek (TypeScript, `.gitignore`, `tsconfig`)
-- [ ] `package.json` dengan blok `n8n` dan keyword community node
-- [ ] Credential NC-WA Gateway API (Base URL + API key → `X-API-Key`)
-- [ ] Script build: kompilasi + salin ikon ke `dist`
+- [x] Setup proyek (TypeScript, `.gitignore`, `tsconfig`)
+- [x] `package.json` dengan blok `n8n` dan keyword community node
+- [x] Credential NC-WA Gateway API (Base URL + API key → `X-API-Key`)
+- [x] Node aksi NC-WA dengan satu operasi (Kirim Teks) + ikon
+- [x] Script build: kompilasi + salin ikon ke `dist`
+- [x] LICENSE dan README secukupnya untuk terbit
+
+Satu operasi ikut di tahap ini karena panel node n8n tidak menampilkan
+credential — tanpa node, gerbang di bawah tidak bisa diuji sama sekali.
+Operasi selebihnya menyusul di tahap 2–4.
 
 **Uji**
-- [ ] [agent] `npm run build` menghasilkan `dist` berisi berkas yang
+- [x] [agent] `npm run build` menghasilkan `dist` berisi berkas yang
       ditunjuk blok `n8n` di `package.json`
-- [ ] [agent] Ikon ikut tersalin ke `dist`, bukan hanya `.js`
-- [ ] [agent] Kelas credential bisa dimuat, header yang dihasilkan
+- [x] [agent] Ikon ikut tersalin ke `dist`, bukan hanya `.js`
+- [x] [agent] Kelas credential bisa dimuat, header yang dihasilkan
       `X-API-Key`
+- [x] [agent] `npm pack` — isi tarball hanya `dist` + berkas wajib
 
-Gerbang: paket harus terpasang dan terbaca n8n sebelum tahap 2.
-Node yang tidak muncul di daftar tidak bisa diuji apa pun.
+Gerbang: paket harus benar-benar terpasang lewat
+**Settings → Community nodes**, bukan disalin manual ke folder data.
+Cara pasang lain tidak membuktikan paketnya layak terbit.
 
-- [ ] [manual] Pasang paket di n8n, node "NC-WA" muncul di panel node
+Karena UI n8n memasang dari npm, paket harus diterbitkan lebih dulu —
+versi awal `0.1.0`, ditandai jelas belum lengkap.
+
+- [ ] [manual] Terbitkan `0.1.0` ke npm
+- [ ] [manual] Pasang lewat Settings → Community nodes, tanpa menyalin
+      berkas apa pun ke folder data
+- [ ] [manual] Node "NC-WA" muncul di panel node
 - [ ] [manual] Isi credential, tombol test kredensial hijau
 
 ## 2. Kirim pesan

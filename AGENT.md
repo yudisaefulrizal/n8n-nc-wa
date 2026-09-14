@@ -66,7 +66,7 @@ API key. Pastikan `.gitignore` terpasang sebelum `git add` pertama.
 
 ## Status
 
-**Tahap:** perencanaan selesai, belum ada kode
+**Tahap:** 1 — fondasi paket. Uji `[agent]` lulus, menunggu gerbang manual.
 
 **Sudah selesai:**
 - SPEC dan ROADMAP disusun; lingkup mencakup seluruh endpoint engine
@@ -76,7 +76,14 @@ API key. Pastikan `.gitignore` terpasang sebelum `git add` pertama.
 - Sasaran runtime dipastikan: n8n 2.30.8, `n8n-workflow` 2.30.2
 - Repo: `github.com/yudisaefulrizal/n8n-nc-wa`, cabang `main`
 
-**Berikutnya:** tahap 1 — fondasi paket.
+- Tahap 1 dikerjakan: credential, node aksi satu operasi (Kirim Teks),
+  ikon, script build, LICENSE, README Inggris
+- Empat uji `[agent]` tahap 1 lulus; isi tarball `npm pack` terbukti
+  bisa dimuat runtime n8n 2.30.8 di container
+
+**Berikutnya:** gerbang tahap 1 — terbitkan `0.1.0` ke npm, lalu pasang
+lewat Settings → Community nodes. Menyalin berkas ke folder data tidak
+dihitung lulus.
 
 ---
 

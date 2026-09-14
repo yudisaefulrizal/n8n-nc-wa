@@ -1,0 +1,55 @@
+{
+  "name": "n8n-nodes-nc-wa",
+  "version": "0.1.0",
+  "description": "n8n community node for NC-WA, a self-hosted WhatsApp gateway built on Baileys",
+  "keywords": [
+    "n8n-community-node-package",
+    "n8n",
+    "whatsapp",
+    "baileys",
+    "nc-wa"
+  ],
+  "license": "MIT",
+  "author": "yudisaefulrizal",
+  "homepage": "https://github.com/yudisaefulrizal/n8n-nc-wa#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yudisaefulrizal/n8n-nc-wa.git"
+  },
+  "bugs": {
+    "url": "https://github.com/yudisaefulrizal/n8n-nc-wa/issues"
+  },
+  "engines": {
+    "node": ">=20.15"
+  },
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc && node scripts/copy-assets.js",
+    "dev": "tsc --watch",
+    "lint": "tsc --noEmit",
+    "prepublishOnly": "npm run build"
+  },
+  "files": [
+    "dist"
+  ],
+  "n8n": {
+    "n8nNodesApiVersion": 1,
+    "credentials": [
+      "dist/credentials/NcWaApi.credentials.js"
+    ],
+    "nodes": [
+      "dist/nodes/NcWa/NcWa.node.js"
+    ]
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "n8n-workflow": "^2.30.2",
+    "typescript": "^5.7.0"
+  },
+  "peerDependencies": {
+    "n8n-workflow": "*"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
