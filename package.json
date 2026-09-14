@@ -1,6 +1,6 @@
 {
   "name": "n8n-nodes-nc-wa",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "n8n community node for NC-WA, a self-hosted WhatsApp gateway built on Baileys",
   "keywords": [
     "n8n-community-node-package",

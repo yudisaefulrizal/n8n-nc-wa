@@ -82,9 +82,17 @@ Starts a workflow when your gateway posts an event.
 
 Options let you accept only one session, or skip group messages.
 
-**Setup:** copy the trigger's Production URL into the `WEBHOOK_URL` setting
-of your gateway's `.env`, then restart the gateway. While testing in the
-editor, use the Test URL and press *Listen for test event* first.
+**Setup:** nothing to configure. When you activate the workflow, the trigger
+registers its own URL with your gateway through the `/webhooks` API, and
+removes it again when you deactivate. While testing in the editor, press
+*Listen for test event* — the test URL is registered the same way.
+
+Registering is safe to repeat, so re-activating a workflow will not leave
+duplicate subscriptions behind.
+
+If your gateway predates the `/webhooks` API, activation still works: copy
+the Production URL into `WEBHOOK_URL` in the gateway's `.env` and restart it,
+as before.
 
 Incoming messages arrive flat:
 

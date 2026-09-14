@@ -135,3 +135,26 @@ tidak bisa ditarik diam-diam.
 - [ ] [manual] Pasang dari npm di instansi produksi, node muncul
 - [ ] [manual] Workflow yang sudah dipindah tetap jalan setelah
       dipasang dari npm (bukan dari salinan lokal)
+
+## 8. Trigger mendaftar sendiri
+
+Menuntut engine punya API `/webhooks` (tahap 7 di engine).
+
+- [x] `webhookMethods.create` mendaftarkan URL waktu workflow diaktifkan
+- [x] `webhookMethods.delete` mencabutnya waktu dinonaktifkan
+- [x] Simpan id langganan di static data node
+- [x] Teruskan penyaring session ke gateway
+- [x] Gateway lama tanpa `/webhooks` tidak menggagalkan aktivasi
+
+**Uji**
+- [x] [agent] Aktivasi mendaftarkan URL ke gateway
+- [x] [agent] Aktivasi ulang tidak menumpuk duplikat
+- [x] [agent] URL uji dan URL produksi jadi langganan terpisah
+- [x] [agent] Penonaktifan mencabut langganan dan membersihkan static data
+- [x] [agent] `delete` tanpa id tersimpan tidak menggagalkan
+- [x] [agent] `delete` pada id yang sudah hilang tidak menahan penonaktifan
+- [x] [agent] Gateway tanpa `/webhooks` tetap boleh diaktifkan
+- [ ] [manual] Aktifkan workflow → langganan muncul di `GET /webhooks`
+      gateway tanpa menyentuh `.env`
+- [ ] [manual] Kirim pesan dari HP → workflow berjalan
+- [ ] [manual] Nonaktifkan workflow → langganan hilang dari gateway

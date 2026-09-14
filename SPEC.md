@@ -63,6 +63,7 @@ Session:
 - [ ] Terima webhook pesan masuk dari engine
 - [ ] Saring berdasarkan session
 - [ ] Saring pesan grup
+- [ ] Mendaftarkan URL-nya sendiri ke engine waktu workflow diaktifkan
 
 ### Credential — NC-WA Gateway API
 - [ ] Base URL + API key
@@ -161,9 +162,11 @@ webhook; menambah retry di sini membuat pesan terkirim dobel.
 
 ## Batasan
 
-**Satu webhook URL di engine.** `WEBHOOK_URL` cuma satu nilai. Artinya
-satu instalasi engine mengirim ke satu trigger node. Kalau perlu bercabang,
-pakai Switch node di dalam workflow, bukan dua trigger.
+**Pendaftaran otomatis butuh engine yang mendukung `/webhooks`.** Trigger
+mendaftarkan URL-nya sendiri waktu workflow diaktifkan dan mencabutnya waktu
+dinonaktifkan. Engine lama yang hanya punya `WEBHOOK_URL` di `.env` tetap
+bisa dipakai — aktivasi tidak digagalkan — tapi URL-nya harus disalin
+manual, dan satu engine hanya bisa mengirim ke satu tujuan.
 
 **Trigger perlu workflow aktif.** URL produksi hanya hidup saat workflow
 aktif. Waktu menguji di editor, pakai Test URL dan tekan "Listen for test

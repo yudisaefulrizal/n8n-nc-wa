@@ -66,7 +66,7 @@ API key. Pastikan `.gitignore` terpasang sebelum `git add` pertama.
 
 ## Status
 
-**Tahap:** 2–5 selesai. Seluruh uji `[agent]` lulus; menunggu uji manual.
+**Tahap:** 8 selesai. Seluruh uji `[agent]` lulus; menunggu uji manual.
 
 **Sudah selesai:**
 - SPEC dan ROADMAP disusun; lingkup mencakup seluruh endpoint engine
@@ -85,8 +85,14 @@ API key. Pastikan `.gitignore` terpasang sebelum `git add` pertama.
 - `sessionId` diberi `displayOptions` agar divalidasi sama seperti field
   lain — lihat [DEBUG.md](DEBUG.md)
 
-**Berikutnya:** `0.2.0` siap terbit. Sesudah terpasang, kerjakan uji
-`[manual]` tahap 2–5 dengan WhatsApp nyata.
+- `0.2.0` terbit di npm
+- Tahap 8: trigger mendaftarkan URL-nya sendiri lewat `/webhooks` engine,
+  dan mencabutnya waktu dinonaktifkan; 13 uji `[agent]` lulus terhadap
+  engine sungguhan
+
+**Berikutnya:** `0.3.0` siap terbit — menuntut engine yang sudah punya
+`/webhooks` (tahap 7 di `../nc-wa`). Sesudah terpasang, kerjakan uji
+`[manual]` dengan WhatsApp nyata.
 
 ---
 
