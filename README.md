@@ -4,11 +4,8 @@ An [n8n](https://n8n.io) community node for **NC-WA**, a self-hosted WhatsApp
 gateway built on [Baileys](https://github.com/WhiskeySockets/Baileys).
 
 NC-WA runs on your own server and exposes a REST API. This node lets n8n
-workflows talk to it without hand-writing HTTP Request nodes.
-
-> **Early release (0.1.0).** Only *Send Text* is implemented so far.
-> Media, presence, session management and an incoming-message trigger are
-> planned. See [ROADMAP.md](ROADMAP.md).
+workflows send messages, manage sessions, and react to incoming messages
+without hand-writing HTTP Request nodes.
 
 ## What you need
 
@@ -16,8 +13,8 @@ workflows talk to it without hand-writing HTTP Request nodes.
   Cloud on a plan that allows them)
 - A running NC-WA gateway and its API key
 
-You can install this node without a gateway — it will appear in the node
-panel and open normally. It only fails when a workflow actually runs.
+You can install this node without a gateway — it appears in the node panel
+and opens normally. It only fails when a workflow actually runs.
 
 ## Installation
 
@@ -42,35 +39,96 @@ button to confirm n8n can reach the gateway.
 If your gateway is reachable from the internet, put it behind HTTPS — the
 API key travels in plain text otherwise.
 
-## Operations
+## Nodes
 
-### Message → Send Text
+### NC-WA
 
-| Field | Notes |
+**Message**
+
+| Operation | What it does |
 | --- | --- |
-| Session ID | The session in your gateway that sends the message |
-| To | International number without `+` (e.g. `628123456789`), or a group ID ending in `@g.us` |
-| Text | Message body |
+| Send Text | Send a plain text message |
+| Send Media | Send an image, document, audio or video from a public URL |
+| Send Typing | Show a typing, recording, or paused indicator |
+| Mark as Read | Mark one received message as read |
 
-Returns the gateway's response, for example:
+**Session**
+
+| Operation | What it does |
+| --- | --- |
+| Create | Create a new session |
+| Get | Get details of one session |
+| Get Many | List every session, one item each |
+| Get QR Code | Fetch the QR code used to pair a session |
+| Reconnect | Reconnect a session that dropped |
+| Log Out | Log out without deleting the session |
+| Delete | Delete a session and its stored credentials |
+
+Numbers are written in international format without a leading `+`
+(`628123456789`). Groups use their group ID, ending in `@g.us`.
+
+Media is sent by URL: your gateway downloads it, so the URL must be
+reachable from the gateway server.
+
+### NC-WA Trigger
+
+Starts a workflow when your gateway posts an event.
+
+| Event | Fires when |
+| --- | --- |
+| Message Received | A message arrives from a contact or group |
+| Session Status Changed | A session connects, disconnects, or logs out |
+| QR Code Updated | A new QR code is ready to scan |
+
+Options let you accept only one session, or skip group messages.
+
+**Setup:** copy the trigger's Production URL into the `WEBHOOK_URL` setting
+of your gateway's `.env`, then restart the gateway. While testing in the
+editor, use the Test URL and press *Listen for test event* first.
+
+Incoming messages arrive flat:
 
 ```json
-{ "messageId": "3EB0...", "to": "628123456789@s.whatsapp.net" }
+{
+  "event": "message",
+  "sessionId": "my-session",
+  "messageId": "3EB0...",
+  "from": "628123456789",
+  "isGroup": false,
+  "groupId": null,
+  "sender": "628123456789",
+  "type": "text",
+  "text": "hello",
+  "timestamp": 1757900000,
+  "media": null
+}
 ```
+
+## Migrating from WAHA
+
+Field names differ, so expressions need updating:
+
+| WAHA | NC-WA |
+| --- | --- |
+| `$json.payload.from` | `$json.from` |
+| `$json.payload.id` | `$json.messageId` |
+| `$json.payload.participant` | `$json.sender` |
+| `chatId` (`628…@c.us`) | `to` (`628…`, plain number) |
+| Start Typing / Stop Typing | Send Typing with a **State** of Typing or Paused |
 
 ## Errors
 
-Gateway errors are passed through as-is so you can read them in n8n. Common
-ones:
+Gateway errors pass through as-is. Common ones:
 
 | Error | Meaning |
 | --- | --- |
 | `unauthorized` | API key missing or wrong |
 | `invalid_request` | Bad number format, or a missing field |
+| `session_not_found` | No session with that ID |
 | `session_not_connected` | That session has not been paired yet |
 
-Enable **Continue On Fail** if you would rather receive the error as an item
-than stop the workflow.
+Enable **Continue On Fail** to receive the error as an item instead of
+stopping the workflow.
 
 ## Compatibility
 

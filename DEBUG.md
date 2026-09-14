@@ -59,3 +59,29 @@ gejalanya meyakinkan dan gampang disalahartikan sebagai paket rusak.
   Jangan menempuh jalan pintas granular token "bypass 2FA": npm sedang
   membatasi token semacam itu (perubahan akun Agustus 2026, publish
   langsung Januari 2027).
+
+## Node melaporkan Session ID, To, dan Text kosong padahal ketiganya terisi
+
+- Coba 1: memeriksa instansi n8n Docker di mesin pengembang
+  (`n8n_nuscode-n8n_nuscode-1`) → paketnya tidak ada di sana sama sekali;
+  `NcWa.node.js` tidak ditemukan di seluruh filesystem container.
+  Pemilik memasangnya di instansi lain.
+- Terbukti bukan penyebabnya: `required: true` bukan hal aneh — node
+  bawaan n8n memakainya juga. Definisi properti juga terbaca wajar waktu
+  kelasnya dimuat.
+- Coba 2: reproduksi lokal dengan `NodeHelpers.getNodeParametersIssues`
+  dari `n8n-workflow` → ketahuan `sessionId` satu-satunya field wajib
+  tanpa `displayOptions`, sehingga tetap divalidasi walau
+  `resource`/`operation` belum diset, sedangkan `to` dan `text` tidak.
+  Validasi jadi tidak konsisten antar-field.
+- Status: selesai sebagian — `sessionId` diberi
+  `displayOptions: { show: { resource: ['message'] } }` supaya
+  diperlakukan sama dengan field lain, dan tetap muncul untuk semua
+  operasi Message yang akan datang.
+
+  Yang belum terjawab: kenapa nilai yang sudah diketik terbaca kosong
+  oleh n8n. Aturan validasinya (`node-helpers.js`, `addToIssuesIfMissing`)
+  menganggap parameter `string` bermasalah kalau nilainya `''` **atau
+  `undefined`** — jadi gejalanya muncul ketika parameter belum tersimpan
+  ke workflow, bukan ketika benar-benar dikosongkan. Perlu dipastikan
+  ulang di instansi tempat gejalanya muncul.

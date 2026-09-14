@@ -66,7 +66,7 @@ API key. Pastikan `.gitignore` terpasang sebelum `git add` pertama.
 
 ## Status
 
-**Tahap:** 1 — fondasi paket. Uji `[agent]` lulus, menunggu gerbang manual.
+**Tahap:** 2–5 selesai. Seluruh uji `[agent]` lulus; menunggu uji manual.
 
 **Sudah selesai:**
 - SPEC dan ROADMAP disusun; lingkup mencakup seluruh endpoint engine
@@ -76,14 +76,17 @@ API key. Pastikan `.gitignore` terpasang sebelum `git add` pertama.
 - Sasaran runtime dipastikan: n8n 2.30.8, `n8n-workflow` 2.30.2
 - Repo: `github.com/yudisaefulrizal/n8n-nc-wa`, cabang `main`
 
-- Tahap 1 dikerjakan: credential, node aksi satu operasi (Kirim Teks),
-  ikon, script build, LICENSE, README Inggris
-- Empat uji `[agent]` tahap 1 lulus; isi tarball `npm pack` terbukti
-  bisa dimuat runtime n8n 2.30.8 di container
+- `0.1.0` terbit di npm dan terpasang lewat Settings → Community nodes
+- Tahap 2–5: Message (teks, media, typing, read), Session (7 operasi),
+  dan trigger webhook dengan penyaring event/session/grup
+- 33 uji `[agent]` lulus terhadap salinan engine di port 3999; validasi
+  parameter diperiksa untuk tiap operasi; tarball terbukti dimuat
+  runtime n8n 2.30.8
+- `sessionId` diberi `displayOptions` agar divalidasi sama seperti field
+  lain — lihat [DEBUG.md](DEBUG.md)
 
-**Berikutnya:** gerbang tahap 1 — `0.1.0` sudah terbit di npm; tinggal pasang
-lewat Settings → Community nodes. Menyalin berkas ke folder data tidak
-dihitung lulus.
+**Berikutnya:** `0.2.0` siap terbit. Sesudah terpasang, kerjakan uji
+`[manual]` tahap 2–5 dengan WhatsApp nyata.
 
 ---
 

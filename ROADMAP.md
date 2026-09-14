@@ -42,60 +42,60 @@ versi awal `0.1.0`, ditandai jelas belum lengkap.
 
 ## 2. Kirim pesan
 
-- [ ] Node aksi NC-WA, resource Message
-- [ ] Operasi Kirim Teks (session, to, text)
-- [ ] Operasi Kirim Media (type, url, caption, filename)
-- [ ] Teruskan error engine apa adanya
-- [ ] Dukung Continue On Fail
+- [x] Node aksi NC-WA, resource Message
+- [x] Operasi Kirim Teks (session, to, text)
+- [x] Operasi Kirim Media (type, url, caption, filename)
+- [x] Teruskan error engine apa adanya
+- [x] Dukung Continue On Fail
 
 **Uji**
-- [ ] [agent] Nomor tak valid → engine menolak `invalid_request`,
+- [x] [agent] Nomor tak valid → engine menolak `invalid_request`,
       bukan gagal di sisi node
-- [ ] [agent] Session belum tersambung → `session_not_connected`
+- [x] [agent] Session belum tersambung → `session_not_connected`
       (membuktikan URL, body, dan header sampai benar)
-- [ ] [agent] Session id berisi karakter aneh tidak merusak URL
-- [ ] [agent] Media tanpa caption tidak mengirim field kosong
-- [ ] [agent] Continue On Fail menyala → error jadi item, workflow lanjut
+- [x] [agent] Session id berisi karakter aneh tidak merusak URL
+- [x] [agent] Media tanpa caption tidak mengirim field kosong
+- [x] [agent] Continue On Fail menyala → error jadi item, workflow lanjut
 - [ ] [manual] Kirim teks dari workflow, pesan sampai di HP tujuan
 - [ ] [manual] Kirim gambar + caption, sampai dan caption terbaca
 
 ## 3. Presence
 
-- [ ] Operasi Mengetik (state composing / recording / paused)
-- [ ] Operasi Tandai Dibaca (from, messageId, sender opsional)
+- [x] Operasi Mengetik (state composing / recording / paused)
+- [x] Operasi Tandai Dibaca (from, messageId, sender opsional)
 
 **Uji**
-- [ ] [agent] Mengetik mengirim `state` sesuai pilihan
-- [ ] [agent] Tandai dibaca tanpa `sender` tidak mengirim field kosong
+- [x] [agent] Mengetik mengirim `state` sesuai pilihan
+- [x] [agent] Tandai dibaca tanpa `sender` tidak mengirim field kosong
 - [ ] [manual] Indikator "sedang mengetik" terlihat di HP tujuan
 - [ ] [manual] Tandai dibaca → centang biru muncul di HP pengirim
 
 ## 4. Kelola session
 
-- [ ] Resource Session: buat, detail, daftar, QR
-- [ ] Sambung ulang, logout, hapus
-- [ ] Daftar session dipecah jadi beberapa item
+- [x] Resource Session: buat, detail, daftar, QR
+- [x] Sambung ulang, logout, hapus
+- [x] Daftar session dipecah jadi beberapa item
 
 **Uji**
-- [ ] [agent] Ambil daftar → tiap session jadi satu item terpisah
-- [ ] [agent] Buat session lalu hapus, keduanya mengembalikan bentuk benar
-- [ ] [agent] Ambil detail session tak dikenal → error diteruskan apa adanya
+- [x] [agent] Ambil daftar → tiap session jadi satu item terpisah
+- [x] [agent] Buat session lalu hapus, keduanya mengembalikan bentuk benar
+- [x] [agent] Ambil detail session tak dikenal → error diteruskan apa adanya
 - [ ] [manual] Buat session dari workflow, ambil QR, pindai sampai
       `connected`
 
 ## 5. Trigger
 
-- [ ] Trigger node dengan webhook POST
-- [ ] Pilihan event: pesan masuk, status session, QR
-- [ ] Saring berdasarkan session
-- [ ] Opsi abaikan pesan grup
-- [ ] Catatan di node: cara mengisi `WEBHOOK_URL` di engine
+- [x] Trigger node dengan webhook POST
+- [x] Pilihan event: pesan masuk, status session, QR
+- [x] Saring berdasarkan session
+- [x] Opsi abaikan pesan grup
+- [x] Catatan di node: cara mengisi `WEBHOOK_URL` di engine
 
 **Uji**
-- [ ] [agent] Event tidak dipilih → workflow tidak jalan
-- [ ] [agent] Session lain → disaring
-- [ ] [agent] Abaikan grup menyala → pesan grup tidak lolos
-- [ ] [agent] Abaikan grup mati → pesan grup lolos
+- [x] [agent] Event tidak dipilih → workflow tidak jalan
+- [x] [agent] Session lain → disaring
+- [x] [agent] Abaikan grup menyala → pesan grup tidak lolos
+- [x] [agent] Abaikan grup mati → pesan grup lolos
 - [ ] [manual] Isi `WEBHOOK_URL` engine dengan URL produksi trigger,
       kirim pesan dari HP → workflow berjalan
 - [ ] [manual] Field `from`, `sender`, `isGroup` terisi benar di output
@@ -104,17 +104,17 @@ versi awal `0.1.0`, ditandai jelas belum lengkap.
 
 Tahap yang membedakan paket pribadi dari paket publik.
 
-- [ ] README bahasa Inggris: apa ini, butuh apa, cara pasang, cara pakai
-- [ ] Tautan ke engine NC-WA untuk yang belum punya
-- [ ] LICENSE (MIT)
-- [ ] Catatan migrasi dari WAHA (perubahan ekspresi `payload.*`)
-- [ ] Ikon node
-- [ ] Pastikan tidak ada nilai default yang menunjuk instalasi pembuat
+- [x] README bahasa Inggris: apa ini, butuh apa, cara pasang, cara pakai
+- [x] Tautan ke engine NC-WA untuk yang belum punya
+- [x] LICENSE (MIT)
+- [x] Catatan migrasi dari WAHA (perubahan ekspresi `payload.*`)
+- [x] Ikon node
+- [x] Pastikan tidak ada nilai default yang menunjuk instalasi pembuat
 
 **Uji**
-- [ ] [agent] Cari di seluruh kode: tidak ada alamat IP, port, nama
+- [x] [agent] Cari di seluruh kode: tidak ada alamat IP, port, nama
       session, atau API key yang tertanam
-- [ ] [agent] `npm pack` — isi tarball hanya `dist` dan berkas wajib,
+- [x] [agent] `npm pack` — isi tarball hanya `dist` dan berkas wajib,
       tidak ada `.env`, sumber, atau berkas pribadi
 - [ ] [manual] Pasang di n8n **tanpa** engine berjalan → node tetap muncul
       dan bisa dibuka, gagal hanya saat dijalankan
