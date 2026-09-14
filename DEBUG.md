@@ -42,3 +42,20 @@ gejalanya meyakinkan dan gampang disalahartikan sebagai paket rusak.
 
   Tapi ini hanya membuktikan berkasnya bisa dimuat — **bukan** bahwa n8n
   mengenali dan menampilkan node-nya. Itu tetap tes `[manual]`.
+
+## `npm publish` ditolak 403 walau sudah `npm login`
+
+- Coba 1: `npm publish` setelah `npm whoami` mengembalikan nama akun →
+  `403 Forbidden ... Two-factor authentication or granular access token
+  with bypass 2fa enabled is required to publish packages`.
+- Terbukti bukan penyebabnya: paketnya sendiri sehat — nama masih kosong
+  di registry, `npm pack` bersih, dan isi tarball sudah terbukti bisa
+  dimuat runtime n8n. Sesi login juga sah.
+- Status: selesai — npm mewajibkan 2FA untuk menerbitkan, terpisah dari
+  login biasa. Aktifkan 2FA mode "Authorization and writes" di
+  Account → Two-Factor Authentication, lalu `npm publish` lagi; npm
+  membuka halaman otentikasi di browser dan terbit setelah dikonfirmasi.
+
+  Jangan menempuh jalan pintas granular token "bypass 2FA": npm sedang
+  membatasi token semacam itu (perubahan akun Agustus 2026, publish
+  langsung Januari 2027).

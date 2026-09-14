@@ -34,7 +34,7 @@ Cara pasang lain tidak membuktikan paketnya layak terbit.
 Karena UI n8n memasang dari npm, paket harus diterbitkan lebih dulu —
 versi awal `0.1.0`, ditandai jelas belum lengkap.
 
-- [ ] [manual] Terbitkan `0.1.0` ke npm
+- [x] [manual] Terbitkan `0.1.0` ke npm
 - [ ] [manual] Pasang lewat Settings → Community nodes, tanpa menyalin
       berkas apa pun ke folder data
 - [ ] [manual] Node "NC-WA" muncul di panel node

@@ -81,7 +81,7 @@ API key. Pastikan `.gitignore` terpasang sebelum `git add` pertama.
 - Empat uji `[agent]` tahap 1 lulus; isi tarball `npm pack` terbukti
   bisa dimuat runtime n8n 2.30.8 di container
 
-**Berikutnya:** gerbang tahap 1 — terbitkan `0.1.0` ke npm, lalu pasang
+**Berikutnya:** gerbang tahap 1 — `0.1.0` sudah terbit di npm; tinggal pasang
 lewat Settings → Community nodes. Menyalin berkas ke folder data tidak
 dihitung lulus.
 
