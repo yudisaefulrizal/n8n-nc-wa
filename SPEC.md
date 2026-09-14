@@ -1,6 +1,6 @@
 # n8n-nodes-nc-wa — Spesifikasi
 
-Community node n8n untuk [NC-WA](../whatsapp-gateway). Membungkus REST API
+Community node n8n untuk [NC-WA](../nc-wa). Membungkus REST API
 engine jadi node yang bisa dipakai di workflow.
 
 Node ini tidak punya logika sendiri: tiap operasi = satu panggilan HTTP ke
@@ -131,7 +131,7 @@ event" dulu.
 
 ## Glosarium
 
-**Engine** — NC-WA, aplikasi gateway di `../whatsapp-gateway`.
+**Engine** — NC-WA, aplikasi gateway di `../nc-wa`.
 
 **Node aksi** — node yang dipanggil di tengah workflow untuk melakukan
 sesuatu (kirim teks, typing). Butuh input, menghasilkan output.
@@ -160,3 +160,10 @@ Settings → Community nodes. Nama sudah dicek belum dipakai di npm.
 
 Wajib: nama berawalan `n8n-nodes-`, ada keyword `n8n-community-node-package`,
 dan blok `n8n` di `package.json` yang menunjuk berkas hasil build.
+
+**Nama paket berbeda dari nama folder dan repo.** Folder dan repo bernama
+`n8n-nc-wa` (lebih pendek, enak dibaca), sedangkan paket npm harus
+`n8n-nodes-nc-wa` karena n8n menolak community node yang namanya tidak
+berawalan `n8n-nodes-`. Ini bukan kelalaian — memang tidak harus sama.
+
+Repo: `https://github.com/yudisaefulrizal/n8n-nc-wa.git`

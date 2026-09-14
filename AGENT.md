@@ -6,7 +6,7 @@ Dibaca tiap mulai sesi. Perintah "lanjutkan" sudah cukup.
 - Urutan pengerjaan → [ROADMAP.md](ROADMAP.md)
 - Yang sudah terbukti gagal → [DEBUG.md](DEBUG.md)
 
-Engine yang dibungkus ada di `../whatsapp-gateway`. Kalau ragu soal bentuk
+Engine yang dibungkus ada di `../nc-wa`. Kalau ragu soal bentuk
 API-nya, baca `src/app.ts` di sana — bukan menebak dari dokumentasi.
 
 ---
