@@ -88,16 +88,21 @@ gejalanya meyakinkan dan gampang disalahartikan sebagai paket rusak.
 
 ## `npm publish` ditolak 409 "Cannot publish over previously staged version"
 
-- Sebabnya: percobaan `npm publish` dari sesi non-interaktif gagal di
-  OTP (`EOTP`), tetapi versi itu terlanjur tersangkut sebagai *staged
-  version* di npm. Percobaan berikutnya ditolak karena tidak boleh
-  menimpa versi yang sudah di-stage.
+- Dugaan pertama: percobaan `npm publish` yang gagal di OTP menyangkutkan
+  versinya. **Keliru.**
+- Sebab sebenarnya: npm menjalankan validasi otomatis pada tiap versi baru.
+  Selama validasi berjalan, versi itu berstatus *staged/validating* dan
+  publish ulang ke nomor yang sama ditolak. Terlihat jelas waktu `0.3.0`
+  terbit: statusnya "Validating" di halaman npm, tarball-nya masih 404,
+  dan `latest` belum berpindah — padahal publish-nya berhasil dan tidak
+  ada kegagalan OTP sama sekali.
 - Terbukti bukan penyebabnya: paketnya sehat — `npm pack` benar, login
   sah, dan versi itu tidak ada di registry publik (`npm view versions`
   hanya menampilkan versi sebelumnya).
-- Status: selesai — jangan menjalankan `npm publish` dari sesi yang tidak
-  bisa menyelesaikan OTP. Publish dijalankan pemilik di terminalnya
-  sendiri, atau dengan `--otp=<kode>`.
+- Status: selesai — tunggu validasi selesai, jangan buru-buru menaikkan
+  nomor versi. Cek dengan `npm view n8n-nodes-nc-wa versions`: versi baru
+  muncul di situ setelah lolos. Biasanya beberapa menit.
 
-  Kalau sudah terlanjur: bereskan lewat **Staged Packages** di npmjs.com,
-  atau naikkan nomor versi lalu terbitkan ulang.
+  Terpisah dari itu: `npm publish` tetap tidak boleh dijalankan dari sesi
+  yang tidak bisa menyelesaikan OTP. Publish dijalankan pemilik di
+  terminalnya sendiri, atau dengan `--otp=<kode>`.
