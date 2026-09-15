@@ -74,17 +74,18 @@ gejalanya meyakinkan dan gampang disalahartikan sebagai paket rusak.
   tanpa `displayOptions`, sehingga tetap divalidasi walau
   `resource`/`operation` belum diset, sedangkan `to` dan `text` tidak.
   Validasi jadi tidak konsisten antar-field.
-- Status: selesai sebagian — `sessionId` diberi
+- Status: selesai — `sessionId` diberi
   `displayOptions: { show: { resource: ['message'] } }` supaya
   diperlakukan sama dengan field lain, dan tetap muncul untuk semua
-  operasi Message yang akan datang.
+  operasi Message. Sejak `0.2.0` gejalanya tidak muncul lagi: node
+  dipakai normal di n8n pemilik, termasuk menjalankan Mark as Read
+  dengan ekspresi pada ketiga field itu.
 
-  Yang belum terjawab: kenapa nilai yang sudah diketik terbaca kosong
-  oleh n8n. Aturan validasinya (`node-helpers.js`, `addToIssuesIfMissing`)
-  menganggap parameter `string` bermasalah kalau nilainya `''` **atau
-  `undefined`** — jadi gejalanya muncul ketika parameter belum tersimpan
-  ke workflow, bukan ketika benar-benar dikosongkan. Perlu dipastikan
-  ulang di instansi tempat gejalanya muncul.
+  Untuk diingat kalau gejala serupa muncul lagi: aturan validasinya ada
+  di `node-helpers.js`, `addToIssuesIfMissing`, dan menganggap parameter
+  `string` bermasalah kalau nilainya `''` **atau `undefined`**. Jadi
+  gejala "sudah diisi tapi dibilang kosong" mengarah ke parameter yang
+  belum tersimpan ke workflow, bukan ke field yang benar-benar kosong.
 
 ## `npm publish` ditolak 409 "Cannot publish over previously staged version"
 

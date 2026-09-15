@@ -45,30 +45,30 @@ tidak ada memaksa mereka kembali memakai HTTP Request node.
 ### Node aksi — NC-WA
 
 Message:
-- [ ] Kirim teks
-- [ ] Kirim media + caption
-- [ ] Mengetik (composing / recording / paused)
-- [ ] Tandai dibaca
+- [x] Kirim teks
+- [x] Kirim media + caption
+- [x] Mengetik (composing / recording / paused)
+- [x] Tandai dibaca
 
 Session:
-- [ ] Buat session
-- [ ] Ambil detail session
-- [ ] Ambil daftar session
-- [ ] Ambil QR
-- [ ] Sambung ulang
-- [ ] Logout
-- [ ] Hapus session
+- [x] Buat session
+- [x] Ambil detail session
+- [x] Ambil daftar session
+- [x] Ambil QR
+- [x] Sambung ulang
+- [x] Logout
+- [x] Hapus session
 
 ### Node trigger — NC-WA Trigger
-- [ ] Terima webhook pesan masuk dari engine
-- [ ] Saring berdasarkan session
-- [ ] Saring pesan grup
-- [ ] Mendaftarkan URL-nya sendiri ke engine waktu workflow diaktifkan
+- [x] Terima webhook pesan masuk dari engine
+- [x] Saring berdasarkan session
+- [x] Saring pesan grup
+- [x] Mendaftarkan URL-nya sendiri ke engine waktu workflow diaktifkan
 
 ### Credential — NC-WA Gateway API
-- [ ] Base URL + API key
-- [ ] Dikirim sebagai header `X-API-Key`
-- [ ] Tombol test kredensial
+- [x] Base URL + API key
+- [x] Dikirim sebagai header `X-API-Key`
+- [x] Tombol test kredensial
 
 ## Di luar lingkup
 
