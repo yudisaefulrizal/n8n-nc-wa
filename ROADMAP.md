@@ -35,10 +35,10 @@ Karena UI n8n memasang dari npm, paket harus diterbitkan lebih dulu —
 versi awal `0.1.0`, ditandai jelas belum lengkap.
 
 - [x] [manual] Terbitkan `0.1.0` ke npm
-- [ ] [manual] Pasang lewat Settings → Community nodes, tanpa menyalin
+- [x] [manual] Pasang lewat Settings → Community nodes, tanpa menyalin
       berkas apa pun ke folder data
-- [ ] [manual] Node "NC-WA" muncul di panel node
-- [ ] [manual] Isi credential, tombol test kredensial hijau
+- [x] [manual] Node "NC-WA" muncul di panel node
+- [x] [manual] Isi credential, tombol test kredensial hijau
 
 ## 2. Kirim pesan
 
@@ -68,7 +68,7 @@ versi awal `0.1.0`, ditandai jelas belum lengkap.
 - [x] [agent] Mengetik mengirim `state` sesuai pilihan
 - [x] [agent] Tandai dibaca tanpa `sender` tidak mengirim field kosong
 - [ ] [manual] Indikator "sedang mengetik" terlihat di HP tujuan
-- [ ] [manual] Tandai dibaca → centang biru muncul di HP pengirim
+- [x] [manual] Tandai dibaca → centang biru muncul di HP pengirim
 
 ## 4. Kelola session
 
@@ -96,9 +96,9 @@ versi awal `0.1.0`, ditandai jelas belum lengkap.
 - [x] [agent] Session lain → disaring
 - [x] [agent] Abaikan grup menyala → pesan grup tidak lolos
 - [x] [agent] Abaikan grup mati → pesan grup lolos
-- [ ] [manual] Isi `WEBHOOK_URL` engine dengan URL produksi trigger,
+- [x] [manual] Isi `WEBHOOK_URL` engine dengan URL produksi trigger,
       kirim pesan dari HP → workflow berjalan
-- [ ] [manual] Field `from`, `sender`, `isGroup` terisi benar di output
+- [x] [manual] Field `from`, `sender`, `isGroup` terisi benar di output
 
 ## 6. Siap dipakai orang lain
 
@@ -132,7 +132,7 @@ tidak bisa ditarik diam-diam.
 - [ ] Pasang lewat Settings → Community nodes di instansi produksi
 
 **Uji**
-- [ ] [manual] Pasang dari npm di instansi produksi, node muncul
+- [x] [manual] Pasang dari npm di instansi produksi, node muncul
 - [ ] [manual] Workflow yang sudah dipindah tetap jalan setelah
       dipasang dari npm (bukan dari salinan lokal)
 
@@ -154,7 +154,7 @@ Menuntut engine punya API `/webhooks` (tahap 7 di engine).
 - [x] [agent] `delete` tanpa id tersimpan tidak menggagalkan
 - [x] [agent] `delete` pada id yang sudah hilang tidak menahan penonaktifan
 - [x] [agent] Gateway tanpa `/webhooks` tetap boleh diaktifkan
-- [ ] [manual] Aktifkan workflow → langganan muncul di `GET /webhooks`
+- [x] [manual] Aktifkan workflow → langganan muncul di `GET /webhooks`
       gateway tanpa menyentuh `.env`
-- [ ] [manual] Kirim pesan dari HP → workflow berjalan
+- [x] [manual] Kirim pesan dari HP → workflow berjalan
 - [ ] [manual] Nonaktifkan workflow → langganan hilang dari gateway

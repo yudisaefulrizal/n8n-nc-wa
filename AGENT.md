@@ -66,7 +66,8 @@ API key. Pastikan `.gitignore` terpasang sebelum `git add` pertama.
 
 ## Status
 
-**Tahap:** 8 selesai. Seluruh uji `[agent]` lulus; menunggu uji manual.
+**Tahap:** 8 selesai. Trigger dan Mark as Read terbukti jalan dengan
+pesan WhatsApp sungguhan.
 
 **Sudah selesai:**
 - SPEC dan ROADMAP disusun; lingkup mencakup seluruh endpoint engine
